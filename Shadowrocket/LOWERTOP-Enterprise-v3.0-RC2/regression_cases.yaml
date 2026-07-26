@@ -1,0 +1,101 @@
+cases:
+- name: Captive Portal
+  host: captive.apple.com
+  expected_policy: DIRECT
+  expected_source_contains: Inline rule
+  requires_remote: false
+- name: BrowserLeaks
+  host: browserleaks.com
+  expected_policy: PROXY
+  expected_source_contains: Probe-Proxy
+  requires_remote: false
+- name: DNS Leak Test
+  host: www.dnsleaktest.com
+  expected_policy: PROXY
+  expected_source_contains: Probe-Proxy
+  requires_remote: false
+- name: OpenAI iOS
+  host: ios.chat.openai.com
+  expected_policy: AI
+  expected_source_contains: OpenAI-AI
+  requires_remote: false
+- name: ChatGPT LiveKit
+  host: room.chatgpt.livekit.cloud
+  expected_policy: AI
+  expected_source_contains: OpenAI-AI
+  requires_remote: false
+- name: No broad OpenAI keyword overmatch
+  host: example-openai-test.invalid
+  expected_policy: PROXY
+  expected_source_contains: FINAL
+  requires_remote: false
+- name: Apple Private Relay
+  host: mask.icloud.com
+  expected_policy: AI
+  expected_source_contains: Apple-Global-AI
+  requires_remote: false
+- name: Apple Siri
+  host: guzzoni.apple.com
+  expected_policy: AI
+  expected_source_contains: Apple-Global-AI
+  requires_remote: false
+- name: Apple Push
+  host: push.apple.com
+  expected_policy: DIRECT
+  expected_source_contains: Apple-Core-Direct
+  requires_remote: false
+- name: Apple Website
+  host: www.apple.com
+  expected_policy: DIRECT
+  expected_source_contains: Apple-Core-Direct
+  requires_remote: false
+- name: Telegram API
+  host: api.telegram.org
+  expected_policy: Telegram
+  expected_source_contains: Telegram
+  requires_remote: true
+- name: YouTube
+  host: www.youtube.com
+  expected_policy: YouTube
+  expected_source_contains: YouTube
+  requires_remote: true
+- name: Netflix
+  host: www.netflix.com
+  expected_policy: Netflix
+  expected_source_contains: Netflix
+  requires_remote: true
+- name: Disney+
+  host: www.disneyplus.com
+  expected_policy: Disney+
+  expected_source_contains: Disney
+  requires_remote: true
+- name: MAX
+  host: www.max.com
+  expected_policy: MAX
+  expected_source_contains: HBO
+  requires_remote: true
+- name: TikTok
+  host: www.tiktok.com
+  expected_policy: TikTok
+  expected_source_contains: TikTok
+  requires_remote: true
+- name: Spotify
+  host: open.spotify.com
+  expected_policy: Spotify
+  expected_source_contains: Spotify
+  requires_remote: true
+- name: AdvertisingLite keyword fixture
+  host: ads.112wan.example
+  expected_policy: REJECT
+  expected_source_contains: AdvertisingLite
+  requires_remote: true
+- name: ChinaMax Baidu
+  host: www.baidu.com
+  expected_policy: DIRECT
+  expected_source_contains: ChinaMax
+  requires_remote: true
+- name: Unknown foreign fallback
+  host: example.org
+  expected_policy: PROXY
+  expected_source_contains: FINAL
+  requires_remote: true
