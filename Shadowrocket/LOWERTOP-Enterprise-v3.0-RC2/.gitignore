@@ -1,0 +1,6 @@
+.cache/
+__pycache__/
+*.pyc
+reports/*.json
+build/*.json
+experimental/*.json
