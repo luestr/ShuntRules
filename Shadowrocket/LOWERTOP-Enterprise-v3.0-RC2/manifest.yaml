@@ -198,7 +198,7 @@ remote_rulesets:
     path: rule/Shadowrocket/AdvertisingLite/AdvertisingLite.list
     policy: REJECT
     stage: 70
-    audit: {min_rules: 10000, max_rules: 100000, max_bytes: 30000000, require_commit_pin: true}
+    audit: {min_rules: 300, max_rules: 1000, max_bytes: 30000000, require_commit_pin: true}
   - name: Lan
     path: rule/Shadowrocket/Lan/Lan.list
     policy: DIRECT
@@ -208,7 +208,7 @@ remote_rulesets:
     path: rule/Shadowrocket/ChinaMax/ChinaMax.list
     policy: DIRECT
     stage: 90
-    audit: {min_rules: 100000, max_rules: 200000, max_bytes: 60000000, require_commit_pin: true}
+    audit: {min_rules: 10000, max_rules: 20000, max_bytes: 60000000, require_commit_pin: true}
 
 final_rule: FINAL,PROXY
 
