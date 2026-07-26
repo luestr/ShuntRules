@@ -1,0 +1,16 @@
+{
+  "version": "3.0.0-rc2",
+  "status": "release-candidate",
+  "recommended_profile": "performance",
+  "recommended_file": "build/LOWERTOP-Enterprise-v3.0-Performance-Direct.conf",
+  "rollback": "rollback/LOWERTOP-Enterprise-v2.5-Performance.conf",
+  "features": [
+    "declarative generation",
+    "modular rulesets",
+    "static audit",
+    "first-match regression",
+    "remote rules audit",
+    "service health framework",
+    "IPv6/SVCB experimental profile"
+  ]
+}
