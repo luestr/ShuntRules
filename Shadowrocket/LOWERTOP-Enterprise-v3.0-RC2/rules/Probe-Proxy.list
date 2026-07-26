@@ -1,0 +1,9 @@
+# NAME: Probe-Proxy
+# POLICY: PROXY
+# PURPOSE: 出口、DNS 与 WebRTC 检测站固定走通用代理
+DOMAIN-SUFFIX,browserleaks.com
+DOMAIN-SUFFIX,dnsleaktest.com
+DOMAIN-SUFFIX,dnsleaktest.org
+DOMAIN-SUFFIX,ipleak.net
+DOMAIN-SUFFIX,ifconfig.co
+DOMAIN-SUFFIX,ipinfo.io
