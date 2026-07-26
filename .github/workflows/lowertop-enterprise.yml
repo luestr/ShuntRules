@@ -1,0 +1,67 @@
+name: LOWERTOP Enterprise Build and Audit
+
+on:
+  push:
+    paths:
+      - "Shadowrocket/LOWERTOP-Enterprise-v3.0-RC2/**"
+      - ".github/workflows/lowertop-enterprise.yml"
+  pull_request:
+    paths:
+      - "Shadowrocket/LOWERTOP-Enterprise-v3.0-RC2/**"
+      - ".github/workflows/lowertop-enterprise.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+env:
+  PROJECT_DIR: Shadowrocket/LOWERTOP-Enterprise-v3.0-RC2
+
+jobs:
+  offline-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.PROJECT_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/generate.py --profile all-release --mode inline
+      - run: python scripts/generate.py --profile ipv6_svcb_experimental --mode inline --out-dir experimental
+      - run: python scripts/regression.py --offline
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lowertop-enterprise-v3-rc2-offline
+          path: |
+            ${{ env.PROJECT_DIR }}/build/*.conf
+            ${{ env.PROJECT_DIR }}/build/*.json
+            ${{ env.PROJECT_DIR }}/reports/regression.json
+            ${{ env.PROJECT_DIR }}/experimental/*.conf
+
+  online-audit:
+    needs: offline-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.PROJECT_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python scripts/generate.py --profile all-release --mode inline
+      - run: python scripts/remote_audit.py
+      - run: python scripts/regression.py --online
+      - name: Endpoint sanity report
+        continue-on-error: true
+        run: python scripts/service_health.py --allow-warnings --allow-failures
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lowertop-enterprise-v3-rc2-online-reports
+          path: |
+            ${{ env.PROJECT_DIR }}/reports/*.json
+            ${{ env.PROJECT_DIR }}/.cache/remote-rules/*
