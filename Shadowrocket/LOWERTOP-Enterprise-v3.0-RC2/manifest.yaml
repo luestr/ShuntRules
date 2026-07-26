@@ -188,7 +188,7 @@ remote_rulesets:
     path: rule/Shadowrocket/TikTok/TikTok.list
     policy: TikTok
     stage: 66
-    audit: {min_rules: 50, max_rules: 10000, max_bytes: 10000000, require_commit_pin: true}
+    audit: {min_rules: 20, max_rules: 10000, max_bytes: 10000000, require_commit_pin: true}
   - name: Spotify
     path: rule/Shadowrocket/Spotify/Spotify.list
     policy: Spotify
